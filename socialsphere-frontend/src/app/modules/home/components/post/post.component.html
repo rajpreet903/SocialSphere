@@ -1,0 +1,164 @@
+<div class="bg-gray-50 rounded-lg drop-shadow-xl overflow-hidden mb-6">
+  <div class="flex items-center justify-between p-4">
+    <div class="flex">
+      <img
+        class="w-12 h-12 rounded-full mr-4 object-cover"
+        [src]="post?.author?.profilePhotoUrl"
+        onerror="this.src='../../../../../assets/profile.png'"
+      />
+      <div>
+        <p class="font-semibold capitalize">{{ post?.author?.name }}</p>
+        <p class="text-xs text-gray-600 lowercase">{{ post?.author?.email }}</p>
+      </div>
+    </div>
+    <button
+      *ngIf="isCurrentRoute()"
+      class="px-4 py-1 rounded-3xl font-bold text-sm text-red-700 bg-red-50 border-2 border-red-600 hover:text-red-800 hover:bg-red-100 ease-in-out duration-150"
+      (click)="deletePost(post?.id)"
+    >
+      Delete
+    </button>
+  </div>
+
+  <div class="p-4">
+    <p>{{ post?.content }}</p>
+  </div>
+
+  <img
+    *ngIf="post?.postPhoto !== ''"
+    class="w-full h-80 object-cover"
+    [src]="post?.postPhoto"
+    onerror="this.src='https://i0.wp.com/picjumbo.com/wp-content/uploads/beautiful-nature-scenery-free-photo.jpg?w=2210&quality=70';"
+  />
+  <div class="p-4 flex justify-around">
+    <button (click)="toggleLike()">
+      <div
+        class="flex items-center cursor-pointer hover:bg-slate-200 rounded-xl ease-in-out duration-300 p-2"
+      >
+        <div *ngIf="post?.likedByUser">
+          <svg
+            width="21"
+            height="20"
+            viewBox="0 0 21 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M1.1543 8.40235H5.60742C5.96712 8.40235 6.26172 8.74335 6.26172 9.16158V19.2426C6.26172 19.6589 5.96712 20.0018 5.60742 20.0018H1.1543C0.794596 20.0018 0.5 19.6608 0.5 19.2426V9.16158C0.5 8.74335 0.794596 8.40235 1.1543 8.40235ZM10.7637 0.840182C11.1087 -1.18506 13.9733 0.680046 14.1621 3.94493C14.2191 4.94342 14.1296 6.10582 13.918 7.40386H18.0114C19.7139 7.4811 21.1999 8.89218 20.1501 11.2094C20.3893 12.2192 20.4251 13.4042 19.7757 13.8715C19.8571 15.4653 19.4762 16.4525 18.7633 17.2324C18.7161 18.0293 18.5697 18.7377 18.2376 19.2822C17.6875 20.1808 17.2415 19.966 16.3757 19.966H9.46322C8.36784 19.966 7.77051 19.6175 7.05436 18.5776V9.66648C9.11491 9.02217 10.2103 5.75917 10.7637 3.61712V0.840182Z"
+              fill="#5D5F63"
+            />
+          </svg>
+        </div>
+        <div *ngIf="!post?.likedByUser">
+          <svg
+            width="21"
+            height="20"
+            viewBox="0 0 21 20"
+            fill="none"
+            class="stroke-slate-700"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M1.1543 8.40235H5.60742C5.96712 8.40235 6.26172 8.74335 6.26172 9.16158V19.2426C6.26172 19.6589 5.96712 20.0018 5.60742 20.0018H1.1543C0.794596 20.0018 0.5 19.6608 0.5 19.2426V9.16158C0.5 8.74335 0.794596 8.40235 1.1543 8.40235ZM10.7637 0.840182C11.1087 -1.18506 13.9733 0.680046 14.1621 3.94493C14.2191 4.94342 14.1296 6.10582 13.918 7.40386H18.0114C19.7139 7.4811 21.1999 8.89218 20.1501 11.2094C20.3893 12.2192 20.4251 13.4042 19.7757 13.8715C19.8571 15.4653 19.4762 16.4525 18.7633 17.2324C18.7161 18.0293 18.5697 18.7377 18.2376 19.2822C17.6875 20.1808 17.2415 19.966 16.3757 19.966H9.46322C8.36784 19.966 7.77051 19.6175 7.05436 18.5776V9.66648C9.11491 9.02217 10.2103 5.75917 10.7637 3.61712V0.840182Z"
+              fill="#F3F2F2"
+            />
+          </svg>
+        </div>
+        <p class="text-sm font-semibold mx-2 text-gray-600">
+          {{ post?.likeCount }}
+        </p>
+      </div>
+    </button>
+    <div
+      class="flex items-center cursor-pointer hover:bg-slate-200 rounded-xl ease-in-out duration-300 p-2"
+    >
+      <svg
+        width="21"
+        height="20"
+        viewBox="0 0 21 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10.5 0.5C4.98597 0.5 0.499966 4.53733 0.499966 9.5C0.499966 11.235 1.04897 12.9153 2.0893 14.368C1.8923 16.547 1.3643 18.1647 0.597633 18.931C0.496299 19.0323 0.470966 19.1873 0.534966 19.3153C0.591966 19.4297 0.708299 19.5 0.833299 19.5C0.848633 19.5 0.864299 19.499 0.879966 19.4967C1.01497 19.4777 4.15097 19.026 6.41897 17.7173C7.7073 18.237 9.0793 18.5 10.5 18.5C16.014 18.5 20.5 14.4627 20.5 9.5C20.5 4.53733 16.014 0.5 10.5 0.5Z"
+          fill="#5D5F63"
+        />
+      </svg>
+
+      <p class="text-sm font-semibold mx-2 text-gray-600">
+        {{ comments.length }}
+      </p>
+    </div>
+  </div>
+  <div class="rounded-lg p-4">
+    <form #commentForm="ngForm" (ngSubmit)="handleComment(commentForm.value)">
+      <div class="flex items-center px-3 py-2 rounded-lg">
+        <img
+          class="w-10 h-10 rounded-full mr-2 object-cover"
+          src="{{ loggedUser?.profilePhotoUrl }}"
+        />
+
+        <textarea
+          class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Write a comment..."
+          rows="1"
+          ngModel
+          #validComment
+          name="content"
+          minlength="2"
+        ></textarea>
+        <button
+          type="submit"
+          [disabled]="validComment.value.length < 1"
+          class="inline-flex justify-center duration-300 p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 disabled:cursor-not-allowed"
+        >
+          <svg
+            class="w-5 h-5 rotate-90"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 18 20"
+          >
+            <path
+              d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z"
+            />
+          </svg>
+          <span class="sr-only">Send message</span>
+        </button>
+      </div>
+    </form>
+    <div *ngIf="comments.length">
+      <button class="text-blue-700 text-sm" (click)="toggleComments()">
+        Show {{ comments.length }} Comments
+      </button>
+    </div>
+    <div
+      class="pl-4 max-h-40 scrollbar shadow-inner scrollbar-track-slate-100 scrollbar-thumb-slate-800 bg-gray-200 rounded-xl overflow-auto"
+      *ngIf="showComments"
+    >
+      <div
+        class="pb-4 pt-4 border-2 border-b-gray-300"
+        *ngFor="let comment of comments"
+      >
+        <div class="flex flex-row items-center">
+          <div
+            class="flex flex-row items-center border-2 border-gray-300 rounded-3xl bg-gray-50 px-2 py-1"
+          >
+            <img
+              class="h-8 w-8 object-cover rounded-full mr-1"
+              src="{{ $any(comment).author.profilePhotoUrl }}"
+            />
+            <div class="capitalize text-sm font-semibold">
+              {{ $any(comment).author.name }}
+            </div>
+          </div>
+          <div class="capitalize text-sm ml-2">{{ $any(comment).content }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
