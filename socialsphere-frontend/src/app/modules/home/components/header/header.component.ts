@@ -74,7 +74,7 @@ export class HeaderComponent {
   }
   handleSearch(searchQuery: any) {
     this.userService.searchUser(searchQuery.search).subscribe(
-      (response) => {
+      (response: User[]) => {
         this.searchResults = response;
         console.log(this.searchResults);
       },
