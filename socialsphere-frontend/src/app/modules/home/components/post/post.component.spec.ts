@@ -16,7 +16,6 @@ describe('PostComponent', () => {
   let fixture: ComponentFixture<PostComponent>;
   let postServiceSpy: PostService;
   let routeSpy: ActivatedRoute;
-  
   let toastServiceSpy: HotToastService;
   let mockUser: User;
   let mockPost: Post;
