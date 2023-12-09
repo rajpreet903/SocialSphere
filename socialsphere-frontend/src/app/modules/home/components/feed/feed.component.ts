@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Output } from '@angular/core';
+import { tap } from 'rxjs';
 import { Post } from 'src/app/model/Post';
 import { User } from 'src/app/model/User';
 import { PostService } from 'src/app/service/post.service';

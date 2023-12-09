@@ -74,6 +74,36 @@ describe('ProfileComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  //   it('should get user and posts for route params', () => {
+  //     // mock route params
+  //     const id = '123';
+
+  //     // spy on route
+  //     spyOn(route.snapshot.paramMap, 'get').and.returnValue(id);
+
+  //     // spy on user service
+  //     const getUserSpy = spyOn(userServiceSpy, 'getUserById').and.returnValue(
+  //       of(mockUser)
+  //     );
+
+  //     // spy on posts method
+  //     const getPostsSpy = spyOn(component, 'getPostsOfSearchUser');
+
+  //     // call ngOnInit
+  //     component.ngOnInit();
+
+  //     // assert params handled
+  //     expect(route.snapshot.paramMap.get).toHaveBeenCalledWith('id');
+
+  //     // assert service called
+  //     expect(getUserSpy).toHaveBeenCalledWith(id);
+
+  //     // assert searchUser set
+  //     expect(component.searchUser).toBe(mockUser);
+
+  //     // assert posts method called
+  //     expect(getPostsSpy).toHaveBeenCalled();
+  //   });
   it('should update user via service', () => {
     // mock form data
     let mockUpdate = mockUser;
@@ -126,4 +156,22 @@ describe('ProfileComponent', () => {
     expect(component.posts).toEqual(mockPosts);
     expect(mockPosts.reverse).toHaveBeenCalled();
   });
+  //   it('should subscribe to postAdded and update posts', () => {
+  //     let mockPosts = [mockPost];
+  //     // spy on getPosts method
+  //     spyOn(component, 'getPosts').and.returnValue(mockPosts);
+  //     spyOn(postServiceSpy.postAdded, 'subscribe').and.returnValue(mockPosts);
+
+  //     // call subscription
+  //     component.initPostAddedSubscription();
+
+  //     // simulate event
+  //     expect(postServiceSpy.postAdded.subscribe).toHaveBeenCalled();
+
+  //     // assert getPosts called
+  //     expect(component.getPosts).toHaveBeenCalled();
+
+  //     // assert posts updated
+  //     expect(component.posts).toBe(mockPosts);
+  //   });
 });
